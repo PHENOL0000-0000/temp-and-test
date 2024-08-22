@@ -2,14 +2,107 @@
 <html>
   <head>
     <meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="https://phenol0000-0000.github.io/EyedistoryPredict/bodyVer.css" />
+    <link rel="stylesheet" type="text/css" href="https://phenol0000-0000.github.io/EyedistoryPredict/bodyVer.css" />
     <title> I AM JAMMINI </title>
+    <style>
+      @import url('https://phenol0000-0000.github.io/MyCoolFontUseAPart/core.css')
+      .RetroTerminalErrLog > .err_style {
+	      /* 소스수정귀차나, 이제는 나는 노력을 못하는게 한심하네 멘탈 super을 이하...보다낮은 super계 */
+      }
+    </style>
     <script src=“https://phenol0000-0000.github.io/urldb/urldb.js“></script>
-    <script>
-      err
-    </script>
   </head>
   <body>
     <h1> 아직만드는중 </h1>
+    <details>
+	    <summary> 덤핑로딩 </summary>
+	    <div>
+		    <p> url </p><input id = "urls"></input><br>
+		    <p>argv1</p><input id = "input_field1"></input><br>
+		    <p>argv2</p><input id = "input_field2"></input><br>
+		    <div id="hideable" class=".hide">
+			    <div class = "err_style">
+				    <p> [ERROR] </p>
+				    <p> <p id='errmsg'></p> </p>
+			    </div>
+		    </div>
+		    <button onclick="Transforms()"> dumping / loading </button>
+		    <script>
+			var p = 0;
+			
+			function laftfnot(x){
+				return 1 - x;
+			}
+
+			function ErrWrite(texts){
+				var target = document.getElementById("errmsg")
+				var frames = document.getElementById("hideable")
+				target.innerHTML = texts;
+				frames.className = "show";
+			}
+
+			function ErrHide(){
+				var frames = document.getElementById("hideable")
+				frames.className = "hide";
+				var target = document.getElementById("errmsg")
+				field.innerHTML = "";
+			}
+			
+			function setv(field, value) {
+				field.value = value;
+			}
+
+			function getv(field) {
+				return field.value;
+			}
+			
+			function LOAD(){
+				var input_field1 = document.getElementById("input_field1");
+				var input_field2 =  document.getElementById("input_field2");
+				var urls =  document.getElementById("urls");
+				if (urls.value == ''){
+					ErrHide()
+				} else {
+					ErrWrite("while load mode, urls is writed")
+					return 1;
+				}
+				var db = urldbload(getv(urls));
+				setv(input_field1, db["argv1"]);
+				setv(input_field2, db["argv2"]);
+				return 0;
+			}
+			
+			function DUMP(){
+				var input_field1 = document.getElementById("input_field1");
+				var input_field2 =  document.getElementById("input_field2");
+				var urls =  document.getElementById("urls");
+				var db = {};
+				if (urls.value == ''){
+					ErrWrite("while dump mode, urls isn't writed")
+					return 1;
+				} else {
+					ErrHide()
+				}
+				db["argv1"] = getv(input_field1);
+				db["argv2"] = getv(input_field2);
+				setv(urls, urldbdump(db));
+				return 0;
+			}
+			
+		        function Transforms(x){
+				p = laftfnot(x);
+				if (p){
+					if (DUMP()){
+						console.log('err');
+					};
+				} else {
+					if (LOAD()){
+						console.log('err');
+					};
+				}
+			}
+		    </script>
+	    </div>
+    </details>
   </body>
 </html>
